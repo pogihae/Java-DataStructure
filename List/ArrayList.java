@@ -1,44 +1,68 @@
+import java.util.Arrays;
 
+/*
+ * This class implements a Array List that use Dynamic array
+ * 
+ * @param <E> the type - only class type
+ */
 public class ArrayList<E> {
+	
 	private static final int DEFAULT_SIZE = 10;
-	
 	private Object[] list;
-	private int count;
+	private int size;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param length the starting array
+	 */
 	public ArrayList(int size) {
 		list = new Object[size];
-		this.count = 0;
+		this.size = 0;
 	}
 	
+	/*NO-args constructor*/
 	public ArrayList() {
 		this(DEFAULT_SIZE);
 	}
 	
+	/*
+	 * add element to list
+	 * if max, increase capacity of array twice
+	 * 
+	 * @param to insert element
+	 */
 	public void add(E elem) {
-		//array bound check
-		if(list.length < count+1) {
+		if(list.length < size+1) {
 			grow();
 		}
-		//add
-		list[count++] = elem;
+
+		list[size++] = elem;
 	}
 	
-	void grow() {
-		//new list with +1 bound
-		Object[] growed = new Object[count+1];
-		//copy
-		for(int i=0; i<count; i++) {
-			growed[i] = list[i];
-		}
-		list = growed;
+	/*doubling capacity*/
+	private void grow() {
+		list = Arrays.copyOf(list,size*2);
 	}
 	
+	/*
+	 * check element is in list
+	 * 
+	 * @param checked element
+	 * @return true, if exist
+	 */
 	public boolean isExist(E elem) {
 		return getIdx(elem) > 0;
 	}
 	
-	int getIdx(E elem) {
-		for(int i=0; i<count; i++) {
+	/*
+	 * get index of given element
+	 * 
+	 * @param checked element
+	 * @return index, if non exist -1
+	 */
+	private int getIdx(E elem) {
+		for(int i=0; i<size; i++) {
 			if(elem.equals(list[i])) {
 				return i;
 			}
@@ -46,33 +70,36 @@ public class ArrayList<E> {
 		return -1;
 	}
 	
+	/*
+	 * remove given element
+	 * polling elements by removed index
+	 * 
+	 * @param removed element
+	 * @return false if non exist
+	 */
 	public boolean remove(E elem) {
 		int rmvIdx = getIdx(elem);
+		
 		if(rmvIdx < 0) {
 			return false;
 		}
+		//polling
+		System.arraycopy(list, rmvIdx+1, list, rmvIdx, (size-1)-rmvIdx);
 		
-		//shift
-		for(int i=rmvIdx; i<count-1; i++) {
-			list[i] = list[i+1];
-		}
-		
-		count--;
+		list[--size] = null;
 		
 		return true;
 	}
 	
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer("");
-		for(Object o:list) {
-			sb.append(o.toString()+", ");
-		}
-		return sb.toString();
+	public int size() {
+		return size;
 	}
 	
-	public int size() {
-		return count;
+	@Override
+	public String toString() {
+		Object[] toStr = new Object[size];
+		System.arraycopy(list, 0, toStr, 0, size);
+		return Arrays.toString(toStr);
 	}
 	
 }
