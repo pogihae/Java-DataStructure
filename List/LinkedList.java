@@ -1,51 +1,80 @@
-
+/*
+ * This class implements Linked list
+ * 
+ * @param element type <E>
+ */
 public class LinkedList<E> {
-	private class Node{
+	
+	/*Node class that saving elements*/
+	private static class Node<E> {
 		E data;
-		Node next;
+		Node<E> next;
 		
-		Node(){
+		Node() {
 			this(null, null);
 		}
 		
-		Node(E data, Node next){
+		Node(E data, Node<E> next) {
 			this.data = data;
 			this.next = next;
 		}
 		
-		/*boolean equals(E e) {
-			return data.equals(e);
-		}*/
+		@Override
+		public String toString() {
+			return data.toString();
+		}
+		
+		@Override
+		public boolean equals(Object o) {
+			return data.equals(o);
+		}
 	}
 	
-	private Node head;
+	/*list's head, always indicate dummy elem*/
+	private Node<E> head;
 	
-	private Node cur;
-	private Node prev;
+	/*used for searching*/
+	private Node<E> cur;
+	private Node<E> prev;
 	
 	private int size;
 	
+	/*
+	 * constructor
+	 * 
+	 * make node for head that includes dump data
+	 * for easier coding
+	 */
 	public LinkedList() {
-		head = new Node();//trash node to easy implement
+		head = new Node<>(); //dummy
 		size = 0;
 	}
 	
+	/*
+	 * add element to list
+	 * most recetly add element locations
+	 * head next
+	 * 
+	 * @param inserted element
+	 */
 	public void add(E e) {
-		Node tmp = head;
-		while(tmp.next != null) {
-			tmp = tmp.next;
-		}
-		
-		tmp.next = new Node(e,null);
+		head.next = new Node<>(e,head.next);
 		size++;
 	}
 	
+	/*
+	 * checking given element is in list
+	 * set cur, prev for remove
+	 * 
+	 * @param for checking element
+	 * @return true or false
+	 */
 	public boolean isExist(E e) {
 		cur = head.next;
 		prev = head;
 		
 		while(cur != null) {
-			if(cur.data.equals(e)) {
+			if(cur.equals(e)) {
 				return true;
 			}
 			
@@ -56,6 +85,13 @@ public class LinkedList<E> {
 		return false;
 	}
 	
+	/*
+	 * remove element
+	 * set prev, cur by isExist
+	 * 
+	 * @param deleted data
+	 * @return true or false
+	 */
 	public boolean remove(E e) {
 		if(!isExist(e)) {
 			return false;
@@ -67,16 +103,37 @@ public class LinkedList<E> {
 		return true;
 	}
 	
+	/*
+	 * todo: use iterator
+	 * */
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		Node tmp = head.next;
+		Node<E> tmp = head.next;
 		
 		while(tmp != null) {
 			sb.append(tmp.data.toString()+", ");
 			tmp = tmp.next;
 		}
 		
-		return sb.toString();
+		String str = sb.toString();
+		str = str.substring(0,str.length()-2);
+		return str;
+	}
+	
+	
+	/*
+	 * todo : use list interface
+	 * */
+	@Override
+	public boolean equals(Object o) {
+		
+		cur = head.next;
+		while(cur != null) {
+			if(!cur.equals(o)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
