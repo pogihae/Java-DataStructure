@@ -150,6 +150,10 @@ public class LinkedList<E> {
 	 * */
 	@Override
 	public String toString() {
+		if(size == 0) {
+			return "Empty";
+		}
+		
 		StringBuffer sb = new StringBuffer();
 		Node<E> tmp = head.next;
 		
