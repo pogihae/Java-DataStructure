@@ -1,3 +1,4 @@
+package List;
 /*
  * This class implements Linked list
  * 
@@ -63,6 +64,47 @@ public class LinkedList<E> {
 	}
 	
 	/*
+	 * set cur, prev pointer
+	 * indicate appropriate node
+	 * by index
+	 * 
+	 * @param index
+	 * @return node data
+	 */
+	private E setCur(int index) {
+		if(index >= size) {
+			return null;
+		}
+		
+		cur = head.next;
+		prev = head;
+		
+		for(int i=0; i<index; i++) {
+			prev = cur;
+			cur = cur.next;
+		}
+		
+		return cur.data;
+	}
+	
+	/*set cur,prev by data*/
+	private E setCur(E e) {
+		cur = head.next;
+		prev = head;
+		
+		while(cur != null) {
+			if(cur.equals(e)) {
+				return cur.data;
+			}
+			
+			prev = cur;
+			cur = cur.next;
+		}
+		
+		return null;
+	}
+	
+	/*
 	 * checking given element is in list
 	 * set cur, prev for remove
 	 * 
@@ -70,19 +112,14 @@ public class LinkedList<E> {
 	 * @return true or false
 	 */
 	public boolean isExist(E e) {
-		cur = head.next;
-		prev = head;
-		
-		while(cur != null) {
-			if(cur.equals(e)) {
-				return true;
-			}
-			
-			prev = cur;
-			cur = cur.next;
+		if(setCur(e) == null) {
+			return false;
 		}
-		
-		return false;
+		return true;
+	}
+	
+	public E get(int index) {
+		return setCur(index);
 	}
 	
 	/*
@@ -101,6 +138,11 @@ public class LinkedList<E> {
 		size--;
 		
 		return true;
+	}
+	
+	/*get size*/
+	public int size() {
+		return size;
 	}
 	
 	/*
