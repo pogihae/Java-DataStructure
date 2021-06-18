@@ -4,7 +4,7 @@ package List;
  * 
  * @param element type <E>
  */
-public class LinkedList<E> {
+public class LinkedList<E> implements List<E>{
 	
 	/*Node class that saving elements*/
 	private static class Node<E> {
