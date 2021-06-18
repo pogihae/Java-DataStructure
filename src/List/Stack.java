@@ -1,5 +1,5 @@
+package List;
 import java.util.NoSuchElementException;
-import List.LinkedList;
 
 /**
  * @author tir29
