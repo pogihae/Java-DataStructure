@@ -1,25 +1,21 @@
-import List.Stack;
+import Tree.BinarySearchTree;
 
 public class HelloWorld {
 
 	public static void main(String[] args) {
 		//System.out.println("Hello World");
 		
-		Stack<Integer> stack = new Stack<>();
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 		
-		for(int i=0; i<15; i++) {
-			stack.push(i);
+		for(int i=0; i<20; i++) {
+			int toAdd = (int)(Math.random()*100) + 1;
+			if(bst.isExist(toAdd))
+				continue;
+			bst.add(toAdd);
 		}
 		
-		System.out.println(stack);
 		
-		for(int i=0; i<15; i++) {
-			System.out.print(stack.peek() +" ");
-			stack.pop();
-
-		}
-		
-		System.out.println(stack);
+		bst.printTree();
 		
 	}
 
