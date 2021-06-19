@@ -1,5 +1,16 @@
 package Tree;
+import java.util.Queue;
+import java.util.LinkedList;
 
+/**
+ * 
+ * This class is for BST
+ * use comparable to implement
+ * use BFS for print
+ * 
+ * @author tir29
+ * @param <E>
+ */
 public class BinarySearchTree<E extends Comparable<E>> {
 	
 	private static class Node<E extends Comparable<E>> {
@@ -21,6 +32,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
 	
 	private Node<E> root;
 	
+	/*constructor*/
 	public BinarySearchTree() {
 		this.root = null;
 	}
@@ -29,6 +41,13 @@ public class BinarySearchTree<E extends Comparable<E>> {
 		this.root = new Node<>(root);
 	}
 	
+	/**
+	 * 
+	 * add data to tree
+	 * with remain BST
+	 * 
+	 * @param to add data
+	 */
 	public void add(E e) {
 		Node<E> toAdd = new Node<>(e);
 		
@@ -61,6 +80,17 @@ public class BinarySearchTree<E extends Comparable<E>> {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * remove data from tree
+	 * if removed has two child
+	 * copy left most child
+	 * and remove that leaf node
+	 * 
+	 * @param to remove
+	 * @return removed data
+	 */
 	public E remove(E e) {
 		//set parent toDel
 		Node<E> pvRoot = new Node<>(null);
@@ -91,7 +121,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
 			return null;
 		}
 		E delData = toDel.data;
-		//remove by childNum
+
 		while(true) {
 			int childNum = getChildNum(toDel);
 			boolean isLeftChild = (toDel.data.compareTo(parent.data) <= 0)? true:false;
@@ -124,6 +154,13 @@ public class BinarySearchTree<E extends Comparable<E>> {
 		return delData;
 	}
 	
+	/**
+	 * 
+	 * get node's child number
+	 * 
+	 * @param node
+	 * @return 0 | 1: only left | -1: only right | 2
+	 */
 	private int getChildNum(Node<E> n) {
 		if(n.right == null && n.left == null) {
 			return 0;
@@ -139,6 +176,13 @@ public class BinarySearchTree<E extends Comparable<E>> {
 		}
 	}
 	
+	/**
+	 * 
+	 * get Bigest node in left sub tree
+	 * 
+	 * @param sub tree's root
+	 * @return left bigest node
+	 */
 	private Node<E> getLeftBigest(Node<E> n) {
 		Node<E> tmp = n;
 		
@@ -149,7 +193,75 @@ public class BinarySearchTree<E extends Comparable<E>> {
 		return tmp;
 	}
 	
+	
+	/**
+	 * 
+	 * @param for check data
+	 * @return true if existed
+	 */
+	public boolean isExist(E e) {
+		return isExist(root, e);
+	}
+	
+	/**
+	 * 
+	 * encapsule for private node
+	 * 
+	 * @param root, for recursive implement
+	 * @param e
+	 * @return
+	 */
+	private boolean isExist(Node<E> n, E e) {
+		if(n == null) {
+			return false;
+		}
+		
+		int cmp = n.data.compareTo(e);
+		
+		if(cmp == 0) {
+			return true;
+		}
+		else if(cmp > 0) {
+			return isExist(n.left, e);
+		}
+		else {
+			return isExist(n.right, e);
+		}
+	}
+	
+	/**
+	 * print tree by using bst
+	 * line for level
+	 */
 	public void printTree() {
+		Queue<Node<E>> que = new LinkedList<>();
+		
+		que.add(root);
+		
+		Node<E> cur = null;
+		int curLevel = 1;
+		int nextLevel = 0;
+		while(!que.isEmpty()) {
+			cur = que.poll();
+			curLevel--;
+			
+			if(cur.left != null) {
+				que.add(cur.left);
+				nextLevel++;
+			}
+			if(cur.right != null) {
+				que.add(cur.right);
+				nextLevel++;
+			}
+			//visit
+			System.out.print(cur+" ");
+			
+			if(curLevel == 0) {
+				System.out.println();
+				curLevel = nextLevel;
+				nextLevel = 0;
+			}
+		}
 		
 	}
 }
