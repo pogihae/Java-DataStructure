@@ -1,21 +1,19 @@
-import Tree.BinarySearchTree;
+
+import Sorting.Sort;
 
 public class HelloWorld {
 
 	public static void main(String[] args) {
 		//System.out.println("Hello World");
 		
-		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		String[] arr = new String[] {
+				"a", "f", "b", "c", "d", "g", "z"
+		};
 		
-		for(int i=0; i<20; i++) {
-			int toAdd = (int)(Math.random()*100) + 1;
-			if(bst.isExist(toAdd))
-				continue;
-			bst.add(toAdd);
-		}
+		Sort.quickSort(arr, 0, arr.length-1, true);
 		
-		
-		bst.printTree();
+		for(String i : arr)
+			System.out.print(i+" ");
 		
 	}
 

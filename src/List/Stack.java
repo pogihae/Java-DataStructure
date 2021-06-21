@@ -13,7 +13,7 @@ public class Stack<E> {
 	
 	private LinkedList<E> stack;
 	
-	/*
+	/**
 	 * constructor
 	 * 
 	 * make linkedlist
