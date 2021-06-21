@@ -2,3 +2,4 @@
 *.class
 src/HelloWorld.java
 src/test.java
+.classpath
