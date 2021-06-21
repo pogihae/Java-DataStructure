@@ -1,5 +1,4 @@
 *.jar
 *.class
-HelloWorld.java
 src/HelloWorld.java
 src/test.java
