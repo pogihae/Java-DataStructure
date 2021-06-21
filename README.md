@@ -1,8 +1,9 @@
 # Java-DataStructure
 
-##List
+## List
 	- ArrayLilst
 	- LInkedList
 	- Stack
-##Tree
+
+## Tree
 	- Binary Search Tree
