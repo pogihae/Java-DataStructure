@@ -1,24 +1,31 @@
 package List;
 import java.util.Arrays;
 
-/*
+
+/**
+ * 
  * This class implements a Array List that use Dynamic array
  * 
- * @param <E> the type - only class type
+ * @author tir29
+ *
+ * @param <E>
  */
 public class ArrayList<E> {
 	
 	private static final int DEFAULT_SIZE = 10;
-	private Object[] list;
+	private E[] list;
 	private int size;
+	
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param length the starting array
 	 */
+	
+	@SuppressWarnings("unchecked")
 	public ArrayList(int size) {
-		list = new Object[size];
+		list = (E[])(new Object[size]);
 		this.size = 0;
 	}
 	
@@ -27,7 +34,7 @@ public class ArrayList<E> {
 		this(DEFAULT_SIZE);
 	}
 	
-	/*
+	/**
 	 * add element to list
 	 * if max, increase capacity of array twice
 	 * 
@@ -46,7 +53,7 @@ public class ArrayList<E> {
 		list = Arrays.copyOf(list,size*2);
 	}
 	
-	/*
+	/**
 	 * check element is in list
 	 * 
 	 * @param checked element
@@ -56,7 +63,7 @@ public class ArrayList<E> {
 		return getIdx(elem) > 0;
 	}
 	
-	/*
+	/**
 	 * get index of given element
 	 * 
 	 * @param checked element
@@ -71,7 +78,7 @@ public class ArrayList<E> {
 		return -1;
 	}
 	
-	/*
+	/**
 	 * remove given element
 	 * polling elements by removed index
 	 * 

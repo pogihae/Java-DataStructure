@@ -233,7 +233,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
 	 * print tree by using bst
 	 * line for level
 	 */
-	public void printTree() {
+	public void printBinaryTree() {
 		Queue<Node<E>> que = new LinkedList<>();
 		
 		que.add(root);

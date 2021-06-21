@@ -1,5 +1,5 @@
 package List;
-/*
+/**
  * This class implements Linked list
  * 
  * @param element type <E>
@@ -40,7 +40,7 @@ public class LinkedList<E> implements List<E>{
 	
 	private int size;
 	
-	/*
+	/**
 	 * constructor
 	 * 
 	 * make node for head that includes dump data
@@ -51,7 +51,7 @@ public class LinkedList<E> implements List<E>{
 		size = 0;
 	}
 	
-	/*
+	/**
 	 * add element to list
 	 * most recetly add element locations
 	 * head next
@@ -63,7 +63,7 @@ public class LinkedList<E> implements List<E>{
 		size++;
 	}
 	
-	/*
+	/**
 	 * set cur, prev pointer
 	 * indicate appropriate node
 	 * by index
@@ -104,7 +104,7 @@ public class LinkedList<E> implements List<E>{
 		return null;
 	}
 	
-	/*
+	/**
 	 * checking given element is in list
 	 * set cur, prev for remove
 	 * 
@@ -122,7 +122,7 @@ public class LinkedList<E> implements List<E>{
 		return setCur(index);
 	}
 	
-	/*
+	/**
 	 * remove element
 	 * set prev, cur by isExist
 	 * 
