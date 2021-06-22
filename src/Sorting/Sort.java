@@ -8,6 +8,21 @@ package Sorting;
 public class Sort {
 	
 	/**
+	 * @param first elem
+	 * @param second elem
+	 * @param is ascending order?
+	 * @return each order compare by boolean
+	 */
+	private static <T extends Comparable<T>> boolean compare(T x, T y, boolean ascd) {
+		if(ascd)
+			return x.compareTo(y) >= 0;
+		else
+			return x.compareTo(y) <= 0;
+	}
+	
+	/*---------Insertion----------*/
+	
+	/**
 	 * 
 	 * Sort object array
 	 * original will be changed
@@ -37,6 +52,14 @@ public class Sort {
 		}
 	}
 	
+	/*----------Quick-----------*/
+	
+	/**
+	 * @param array
+	 * @param first index number in main use with '0'
+	 * @param last index number arr's length -1
+	 * @param is ascending
+	 */
 	public static <T extends Comparable<T>> void quickSort(T[] arr, int first, int last, boolean ascd) {
 		if(first >= last) {
 			return;
@@ -83,16 +106,5 @@ public class Sort {
 		arr[y] = tmp;
 	}
 	
-	/**
-	 * @param first elem
-	 * @param second elem
-	 * @param is ascending order?
-	 * @return each order compare by boolean
-	 */
-	private static <T extends Comparable<T>> boolean compare(T x, T y, boolean ascd) {
-		if(ascd)
-			return x.compareTo(y) >= 0;
-		else
-			return x.compareTo(y) <= 0;
-	}
+	
 }
