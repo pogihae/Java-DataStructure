@@ -1,4 +1,4 @@
-package List;
+package list;
 import java.util.NoSuchElementException;
 
 /**
