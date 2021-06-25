@@ -2,26 +2,51 @@ package graph;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
 
 import java.util.NoSuchElementException;
 
+
+/**
+ * @author tir29
+ * This class implements Graph by Map, List.
+ * Map for Vertexs, List for Edges
+ */
 public class Graph {
 	
 	Map<String, Vertex> vertexMap;
 	List<Edge> edgeList;
 	
+	/**
+	 * Constructor
+	 */
 	public Graph() {
 		this.vertexMap = new HashMap<>();
 		this.edgeList = new LinkedList<>();
 	}
 	
+	/**
+	 * add Vertex in graph
+	 * add Vertex only, not edge
+	 * 
+	 * @param name, Vertex's name
+	 */
 	public void addVertex(String name) {
 		vertexMap.put(name, new Vertex());
 	}
 	
+	/**
+	 * 
+	 * add Edge in edge list
+	 * use undirect graph
+	 * so one edge makes two closed Vertexs
+	 * 
+	 * @param start Vertex
+	 * @param end Vertex
+	 * @param edge weight
+	 * @throws NoSuchElementException, no given vertexs exist
+	 */
 	public void addEdge(String v1, String v2, int weight) {
 		//check v1,v2 are exist
 		if(!vertexMap.containsKey(v1) || !vertexMap.containsKey(v2)) {
@@ -33,7 +58,7 @@ public class Graph {
 			.closedVertexList
 			.add(vertexMap.get(v2));
 		
-		//indirect graph
+		//undirect graph
 		vertexMap.get(v2)
 		.closedVertexList
 		.add(vertexMap.get(v1));
@@ -42,6 +67,11 @@ public class Graph {
 		edgeList.add(new Edge(v1, v2, weight));
 	}
 	
+	/**
+	 * @param vertex's name
+	 * @return true, if remove success
+	 * false, if no exist
+	 */
 	public boolean removeVertex(String name) {
 		Vertex toDel = vertexMap.get(name);
 		if(toDel == null) return false;
@@ -64,7 +94,7 @@ public class Graph {
 		return true;
 	}
 	
-	public void print() {
+	public void printDFS() {
 		
 	}
 	
