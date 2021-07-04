@@ -9,3 +9,7 @@
 
 ## Tree
 	- Binary Search Tree
+	
+## Sort
+	- Insertion Sort
+	- Quick Sort
