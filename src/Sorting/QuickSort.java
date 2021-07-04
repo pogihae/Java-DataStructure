@@ -1,6 +1,8 @@
+package sorting;
+
 public class QuickSort{
 
-public static <T extends Comparable<T>> void quickSort(T[] arr, int first, int last, boolean ascd) {
+	public static <T extends Comparable<T>> void quickSort(T[] arr, int first, int last, boolean ascd) {
 		if(first >= last) {
 			return;
 		}
@@ -37,5 +39,24 @@ public static <T extends Comparable<T>> void quickSort(T[] arr, int first, int l
 		}
 		swap(arr, first, rightP);
 		return rightP;
+	}
+	/**swap element*/
+	private static <T extends Comparable<T>> void swap(T[] arr, int x, int y) {
+		T tmp = arr[x];
+		arr[x] = arr[y];
+		arr[y] = tmp;
+	}
+	
+	/**
+	 * @param first elem
+	 * @param second elem
+	 * @param is ascending order?
+	 * @return each order compare by boolean
+	 */
+	private static <T extends Comparable<T>> boolean compare(T x, T y, boolean ascd) {
+		if(ascd)
+			return x.compareTo(y) >= 0;
+		else
+			return x.compareTo(y) <= 0;
 	}
 }
