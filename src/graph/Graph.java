@@ -15,8 +15,10 @@ import java.util.NoSuchElementException;
  */
 public class Graph {
 	
-	Map<String, Vertex> vertexMap;
-	List<Edge> edgeList;
+	private Map<String, Vertex> vertexMap;
+	private List<Edge> edgeList;
+	private Map<String, Boolean> visited;
+	
 	
 	/**
 	 * Constructor
@@ -94,15 +96,46 @@ public class Graph {
 		return true;
 	}
 	
-	public void printDFS() {
+	public void startDFS(String start) {
+		visited = new Map<>();
+		for(String key : visited.keySet()) {
+			visited.replace(key, false);
+		}
+		dfs(start);
+	}
+	
+	private void dfs(String start) {
+		visited.replace(start, true);
+		for(Vertex v : vertexMap.get(start).closedVertexList) {
+			if(!visited.get(v.name)) {
+				dfs(v.name);
+			}
+		}
+	}
+	
+	private void bfs(String start) {
+		Queue<String> q = new LinkedList<>();
+		visited.replace(start, true);
+		q.add(start);
 		
+		while(!q.isEmpty()) {
+			String now = q.poll();
+			for(Vertex v : vertexMap.get(now).closedVertexList) {
+				if(!visited.get(v.name)) {
+					q.add(v.name);
+					visited.replace(v.name, true);
+				}
+			}
+		}
 	}
 	
 	//vertex
 	private class Vertex{
+		String name;
 		List<Vertex> closedVertexList;
 		
-		Vertex(){
+		Vertex(String name){
+			this.name = name;
 			this.closedVertexList = new LinkedList<>();
 		}
 	}
