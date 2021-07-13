@@ -13,3 +13,9 @@
 ## Sort
 	- Insertion Sort
 	- Quick Sort
+	
+## Graph
+	- represented by closed list
+	- include DFS, BFS
+## Hash
+	- Hash Table
