@@ -19,4 +19,4 @@
 	- include DFS, BFS
 ## Hash
 	- Hash Table
-	- [Hash Table](./Hash/HashTable.java)
+	- [Hash Table](./src/hash/HashTable.java)
