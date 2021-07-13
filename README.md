@@ -18,5 +18,7 @@
 	- represented by closed list
 	- include DFS, BFS
 ## Hash
-	- Hash Table
-	- [Hash Table](./src/hash/HashTable.java)
+
+- [Hash Table](./src/hash/HashTable.java)
+
+
