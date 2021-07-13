@@ -1,4 +1,4 @@
-package List;
+package list;
 /**
  * This class implements Linked list
  * 
