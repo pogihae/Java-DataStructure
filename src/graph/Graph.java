@@ -1,10 +1,6 @@
 package graph;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.LinkedList;
-
+import java.util.*;
 import java.util.NoSuchElementException;
 
 
@@ -17,7 +13,8 @@ public class Graph {
 	
 	private Map<String, Vertex> vertexMap;
 	private List<Edge> edgeList;
-	private Map<String, Boolean> visited;
+	private Map<String, Vertex> visited;
+	private boolean cycle;
 	
 	
 	/**
@@ -35,7 +32,7 @@ public class Graph {
 	 * @param name, Vertex's name
 	 */
 	public void addVertex(String name) {
-		vertexMap.put(name, new Vertex());
+		vertexMap.put(name, new Vertex(name));
 	}
 	
 	/**
@@ -97,37 +94,54 @@ public class Graph {
 	}
 	
 	public void startDFS(String start) {
-		visited = new Map<>();
-		for(String key : visited.keySet()) {
-			visited.replace(key, false);
+		visited = new HashMap<>();
+		for(String key : vertexMap.keySet()) {
+			visited.put(key, null);
 		}
 		dfs(start);
 	}
 	
+	public boolean hasCycle(String start) {
+		cycle = false;
+		startDFS(start);
+		return cycle;
+	}
+	
 	private void dfs(String start) {
-		visited.replace(start, true);
+		
+		visited.replace(start, visited.getOrDefault(start, new Vertex(start)));
 		for(Vertex v : vertexMap.get(start).closedVertexList) {
-			if(!visited.get(v.name)) {
+			if(visited.get(v.name) == null) {
+				visited.replace(v.name, vertexMap.get(start));
 				dfs(v.name);
 			}
+			else if(!visited.get(start).equals(vertexMap.get(v.name))) cycle = true;
 		}
+	}
+	
+	/*public void startBFS(String start) {
+		visited = new HashMap<>();
+		for(String key : visited.keySet()) {
+			visited.replace(key, null);
+		}
+		bfs(start);
 	}
 	
 	private void bfs(String start) {
 		Queue<String> q = new LinkedList<>();
-		visited.replace(start, true);
+		visited.replace(start, null);
 		q.add(start);
 		
 		while(!q.isEmpty()) {
 			String now = q.poll();
-			for(Vertex v : vertexMap.get(now).closedVertexList) {
-				if(!visited.get(v.name)) {
-					q.add(v.name);
-					visited.replace(v.name, true);
+			//for(Vertex v : vertexMap.get(now).closedVertexList) {
+				//if(!visited.get(v.name)) {
+					//q.add(v.name);
+					//visited.replace(v.name, true);
 				}
 			}
 		}
-	}
+	}*/
 	
 	//vertex
 	private class Vertex{
@@ -138,6 +152,14 @@ public class Graph {
 			this.name = name;
 			this.closedVertexList = new LinkedList<>();
 		}
+		
+		@Override
+		public boolean equals(Object o) {
+			Vertex v = (Vertex) o;
+			
+			return this.name.equals(v.name);
+		}
+
 	}
 	
 	//edge
@@ -155,5 +177,23 @@ public class Graph {
 		boolean isEdgeFor(String name) {
 			return (v1.equals(name)) || (v2.equals(name));
 		}
+	}
+	
+	public static void main(String[] args) {
+		Graph g = new Graph();
+		
+		for(char t = 'A'; t <= 'Z'; t++) {
+			g.addVertex(Character.toString(t));
+		}
+		
+		for(int i=0; i<10; i++) {
+			g.addEdge(Character.toString((char)(Math.random()*26) + 65), Character.toString((char)(Math.random()*26) + 65), 1);
+		}
+		
+		/*for(char t = 'A'; t < 'Z'; t++) {
+			g.addEdge(Character.toString(t), Character.toString(t+1), 1);
+		}*/
+		
+		System.out.println(g.hasCycle("A"));
 	}
 }
