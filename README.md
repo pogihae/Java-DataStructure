@@ -1,20 +1,20 @@
 # Java-DataStructure
 
 
-## [List](./src/list/)
+## [List](./src/List/)
 	- ArrayLilst
 	- LInkedList
 	- Stack
 
 
-## [Tree](./src/tree/)
+## [Tree](./src/Tree/)
 	- Binary Search Tree
 	
-## [Sort](./src/sort/)
+## [Sort](./src/Sorting/)
 	- Insertion Sort
 	- Quick Sort
 	
-## [Graph](./src/graph/)
+## [Graph](./src/Graph/)
 	- represented by closed list
 	- include DFS, BFS
 
