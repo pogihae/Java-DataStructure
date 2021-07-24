@@ -14,11 +14,11 @@
 	- Insertion Sort
 	- Quick Sort
 	
-## Graph
+## [Graph](./src/graph/Graph.java)
 	- represented by closed list
 	- include DFS, BFS
-## Hash
 
-- [Hash Table](./src/hash/HashTable.java)
+## [Hash](./src/hash/HashTable.java)
+
 
 
