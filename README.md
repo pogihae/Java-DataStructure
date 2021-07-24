@@ -14,7 +14,7 @@
 	- Insertion Sort
 	- Quick Sort
 	
-## [Graph](./src/Graph/)
+## [Graph](./src/graph/)
 	- represented by closed list
 	- include DFS, BFS
 
