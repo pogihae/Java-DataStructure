@@ -4,12 +4,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**UnionFind
+ *
+ * Implements Union Find with weight consider
+ * Guarantee 'find' execute in logN
+ *
+ * @author pms
+ *
+ * */
 public class UnionFind {
     int count;
     int[] components;
     int[] sizes;
 
-    //constructor
+    /*constructor*/
     public UnionFind(int count) {
         this.count = count;
         this.components = new int[count];
@@ -23,18 +31,18 @@ public class UnionFind {
         }
     }
 
-    //find
+    /*find root*/
     public int find(int p) {
         while(components[p] != p) p = components[p];
         return p;
     }
 
-    //connected
+    /*return is connected*/
     public boolean isConnected(int p, int q) {
         return find(p) == find(q);
     }
 
-    //union
+    /*union if not already connected*/
     public int union(int p, int q) {
         int pRoot = find(p);
         int qRoot = find(q);
