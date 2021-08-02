@@ -11,8 +11,8 @@ import java.util.NoSuchElementException;
  */
 public class Graph {
 	
-	private Map<String, Vertex> vertexMap;
-	private List<Edge> edgeList;
+	private final Map<String, Vertex> vertexMap;
+	private final List<Edge> edgeList;
 	private Map<String, Vertex> visited;
 	private boolean cycle;
 	
@@ -41,9 +41,9 @@ public class Graph {
 	 * use undirect graph
 	 * so one edge makes two closed Vertexs
 	 * 
-	 * @param start Vertex
-	 * @param end Vertex
-	 * @param edge weight
+	 * @param v1 start
+	 * @param v2 end
+	 * @param weight edge weight
 	 * @throws NoSuchElementException, no given vertexs exist
 	 */
 	public void addEdge(String v1, String v2, int weight) {
@@ -67,7 +67,7 @@ public class Graph {
 	}
 	
 	/**
-	 * @param vertex's name
+	 * @param name vertex's name
 	 * @return true, if remove success
 	 * false, if no exist
 	 */
@@ -187,7 +187,7 @@ public class Graph {
 		}
 		
 		for(int i=0; i<10; i++) {
-			g.addEdge(Character.toString((char)(Math.random()*26) + 65), Character.toString((char)(Math.random()*26) + 65), 1);
+			g.addEdge(Character.toString((char) ((int)(Math.random()*26) + 65)), Character.toString((char) ((int)(Math.random()*26) + 65)), 1);
 		}
 		
 		/*for(char t = 'A'; t < 'Z'; t++) {

@@ -1,11 +1,11 @@
-package Sorting;
+package sort;
 
 
 /**
  * @author tir29
  * todo:  multithreading
  */
-public class Sort {
+public class InsertionSort {
 	
 	/**
 	 * 

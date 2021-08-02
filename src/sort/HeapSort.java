@@ -2,7 +2,7 @@ package sort;
 
 import java.util.Arrays;
 
-public class Heap<T extends Comparable<T>> {
+public class HeapSort<T extends Comparable<T>> {
 	private static final int DEFAULT_SIZE = 10;
 	private static final int ROOT = 1;
 	
@@ -16,14 +16,14 @@ public class Heap<T extends Comparable<T>> {
 	 * @param maxOrMin, Max heap: true, Min heap: false 
 	 */
 	@SuppressWarnings("unchecked")
-	public Heap(int capacity, boolean maxOrMin) {
+	public HeapSort(int capacity, boolean maxOrMin) {
 		this.elements = (T[])(new Comparable[capacity]);
 		this.size = 0;
 		this.capacity = capacity;
 		this.maxOrMin = maxOrMin;
 	}
 	
-	public Heap() {
+	public HeapSort() {
 		this(DEFAULT_SIZE, false);
 	}
 	
@@ -40,7 +40,7 @@ public class Heap<T extends Comparable<T>> {
 	/**
 	 * add in heap, complete binary tree
 	 * 
-	 * @param to insert
+	 * @param t to insert
 	 */
 	public void add(T t) {
 		if(++size >= capacity) {
