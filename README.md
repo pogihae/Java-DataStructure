@@ -9,6 +9,8 @@
 ## [Sort](./src/sort/)
 	- Insertion Sort
 	- Quick Sort
+	- Selection Sort
+	- Merge Sort
 	
 ## [Graph](./src/graph/)
 	- implements by closed
