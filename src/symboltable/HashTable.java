@@ -1,4 +1,4 @@
-package hash;
+package symboltable;
 
 import list.LinkedList;
 import java.util.Arrays;
