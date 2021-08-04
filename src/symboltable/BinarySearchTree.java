@@ -1,5 +1,8 @@
 package symboltable;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /** Binary Search Tree <br>
  * @complexity logN ~ N
  */
@@ -152,6 +155,24 @@ public class BinarySearchTree<K extends Comparable<K>, V extends Comparable<V>> 
 	}
 
 	/*range search*/
+	public Iterable<K> rangeSearch(K lo, K hi) {
+		Queue<K> que = new LinkedList<>();
+		rangeSearch(root, que, lo, hi);
+		return que;
+	}
+	private void rangeSearch(Node<K,V> node, Queue<K> que, K lo, K hi) {
+		if(node == null) return;
+
+		int loCmp = lo.compareTo(node.key);
+		int hiCmp = hi.compareTo(node.key);
+
+		if(loCmp > 0) { rangeSearch(node.right, que, lo, hi); return; }
+		else if(hiCmp < 0) { rangeSearch(node.left, que, lo, hi); return; }
+		else que.add(node.key);
+
+		rangeSearch(node.right, que, lo, hi);
+		rangeSearch(node.left, que, lo, hi);
+	}
 
 	/*size*/
 	public int size() {
@@ -182,6 +203,10 @@ public class BinarySearchTree<K extends Comparable<K>, V extends Comparable<V>> 
 		System.out.println(bst.max());
 
 		System.out.println(bst.size());
+
+		Iterable<Character> iterable = bst.rangeSearch('A', 'A');
+		for(Character x : iterable)
+			System.out.print(x+" ");
 
 	}
 }
