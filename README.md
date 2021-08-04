@@ -14,7 +14,7 @@
 	- implements by closed
 	- include DFS, BFS
 
-## [Hash](./src/hash/)
+## [Table](./src/symboltable/)
 	- Binary Search Tree
 	- Hash Table
 
