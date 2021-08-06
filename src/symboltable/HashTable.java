@@ -4,9 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-/**
+/** Hash Table <br>
  * 
- * table using hash key, dynamic array of list
+ * with separate chaining
+ * @complexity 1 + N (in list search)
  * 
  * @author tir29
  */
