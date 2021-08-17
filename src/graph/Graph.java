@@ -2,6 +2,7 @@ package graph;
 
 import java.util.*;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 
 /**
@@ -38,13 +39,13 @@ public class Graph {
 	/**
 	 * 
 	 * add Edge in edge list
-	 * use undirect graph
-	 * so one edge makes two closed Vertexs
+	 * use Indirect graph
+	 * so one edge makes two closed Vertexes
 	 * 
 	 * @param v1 start
 	 * @param v2 end
 	 * @param weight edge weight
-	 * @throws NoSuchElementException, no given vertexs exist
+	 * @throws NoSuchElementException, no given vertexes exist
 	 */
 	public void addEdge(String v1, String v2, int weight) {
 		//check v1,v2 are exist
@@ -57,7 +58,7 @@ public class Graph {
 			.closedVertexList
 			.add(vertexMap.get(v2));
 		
-		//undirect graph
+		//Indirect graph
 		vertexMap.get(v2)
 		.closedVertexList
 		.add(vertexMap.get(v1));
@@ -94,6 +95,10 @@ public class Graph {
 	}
 	
 	public void startDFS(String start) {
+		if(!vertexMap.containsKey(start)) {
+			System.out.println("NO START VERTEX");
+			return;
+		}
 		visited = new HashMap<>();
 		for(String key : vertexMap.keySet()) {
 			visited.put(key, null);
@@ -108,7 +113,6 @@ public class Graph {
 	}
 	
 	private void dfs(String start) {
-		
 		visited.replace(start, visited.getOrDefault(start, new Vertex(start)));
 		for(Vertex v : vertexMap.get(start).closedVertexList) {
 			if(visited.get(v.name) == null) {
@@ -119,32 +123,45 @@ public class Graph {
 		}
 	}
 	
-	/*public void startBFS(String start) {
+	public void startBFS(String start) {
 		visited = new HashMap<>();
-		for(String key : visited.keySet()) {
-			visited.replace(key, null);
+		for(String key : vertexMap.keySet()) {
+			visited.put(key, null);
 		}
 		bfs(start);
 	}
 	
 	private void bfs(String start) {
 		Queue<String> q = new LinkedList<>();
-		visited.replace(start, null);
+		visited.replace(start, new Vertex(start));
 		q.add(start);
 		
 		while(!q.isEmpty()) {
 			String now = q.poll();
-			//for(Vertex v : vertexMap.get(now).closedVertexList) {
-				//if(!visited.get(v.name)) {
-					//q.add(v.name);
-					//visited.replace(v.name, true);
+			for(Vertex v : vertexMap.get(now).closedVertexList) {
+				if(visited.get(v.name) == null) {
+					q.add(v.name);
+					visited.replace(v.name, vertexMap.get(now));
 				}
 			}
 		}
-	}*/
+	}
+
+	public void print() {
+		vertexMap.keySet()
+				.stream()
+				.sorted()
+				.forEach(s->{
+					System.out.print(s+": ");
+					vertexMap.get(s)
+							.closedVertexList
+							.forEach(vertex -> System.out.print(vertex+" "));
+					System.out.println();
+				});
+	}
 	
 	//vertex
-	private class Vertex{
+	private static class Vertex{
 		String name;
 		List<Vertex> closedVertexList;
 		
@@ -159,11 +176,14 @@ public class Graph {
 			
 			return this.name.equals(v.name);
 		}
-
+		@Override
+		public String toString() {
+			return name;
+		}
 	}
 	
 	//edge
-	private class Edge{
+	private static class Edge{
 		final String v1;
 		final String v2;
 		final int weight;
@@ -186,14 +206,12 @@ public class Graph {
 			g.addVertex(Character.toString(t));
 		}
 		
-		for(int i=0; i<10; i++) {
-			g.addEdge(Character.toString((char) ((int)(Math.random()*26) + 65)), Character.toString((char) ((int)(Math.random()*26) + 65)), 1);
+		for(char t = 'A'; t <= 'Z'; t++) {
+			g.addEdge(Character.toString(t), Character.toString((char) ((int)(Math.random()*26) + 65)), 1);
 		}
-		
-		/*for(char t = 'A'; t < 'Z'; t++) {
-			g.addEdge(Character.toString(t), Character.toString(t+1), 1);
-		}*/
-		
-		System.out.println(g.hasCycle("A"));
+		g.startBFS("A");
+		g.print();
+		//g.removeVertex("A");
+		//System.out.println(g.hasCycle("A"));
 	}
 }
