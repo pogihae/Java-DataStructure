@@ -1,75 +1,72 @@
-package symboltable;
+package symboltable
 
-import java.util.LinkedList;
-import java.util.List;
-
-
-/** Hash Table <br>
- * 
+/** Hash Table <br></br>
+ *
  * with separate chaining
- * @complexity 1 + N (in list search)
- * 
- * @author tir29
+ * @complexity 1
+ *
+ * @author pogihae
  */
-public class HashTable<K extends Comparable<K>, V> {
-    private static class Node<K extends Comparable<K>,V> implements Comparable<Node<K,V>> {
-        K key;
-        V val;
+class HashTable<K, V>(n: Int = 32) {
 
-        Node(K key, V val) {
-            this.key = key;
-            this.val = val;
+    private var table: Array<Node<K,V>?>
+    private var capacity: Int
+    private var size: Int
+
+    init {
+        table = arrayOfNulls(n)
+        capacity = n
+        size = 0
+    }
+
+    private fun hashing(key: K) = (key.hashCode() and 0x7fffffff) % capacity
+
+    fun put(key: K, value: V) {
+        if (size >= capacity) {
+            capacity *= 2
+            val newTable = arrayOfNulls<Node<K,V>>(capacity)
+            for (e in table) {
+                if (e != null) {
+                    newTable[hashing(e.key)] = e
+                }
+            }
+            table = newTable
         }
 
-        @Override
-        public int compareTo(Node<K, V> o) {
-            return key.compareTo(o.key);
-        }
+        val hc = hashing(key)
+        table[hc] = Node(key, value)
+        size++
     }
 
-    List<Node<K,V>>[] table;
-    private final int N;
-    private int size;
+    fun get(key: K) = table[hashing(key)]?.value
 
-    public HashTable() {
-        this(100);
+    fun remove(key: K): Boolean {
+        val hc = hashing(key)
+
+        if (table[hc] == null) return false
+
+        table[hc] = null
+        size--
+
+        return true
     }
 
-    public HashTable(int n) {
-        table = new LinkedList[n];
-        N = n;
-        size = 0;
+    class Node<K, V>(val key: K, val value: V)
+}
+
+
+
+fun main() {
+    val myTable = HashTable<Int, Int>(4)
+
+    for (i in 1..10) {
+        myTable.put(i, i)
     }
 
-    private int hashing(K key) {
-        return (key.hashCode() & 0x7fffffff) % N;
+    for (i in 10 downTo 1) {
+        println(myTable.get(i))
     }
 
-    public void put(K key, V val) {
-        int hc = hashing(key);
-        if(table[hc] == null) table[hc] = new LinkedList<>();
-        table[hc].add(new Node<>(key, val));
-        size++;
-    }
-
-    public V get(K key) {
-        int hc = hashing(key);
-        if(table[hc] == null) return null;
-        return table[hc].stream()
-                .filter(node -> node.key.equals(key))
-                .findAny()
-                .orElse(new Node<>(null, null)).val;
-    }
-
-    public static void main(String[] args) {
-        HashTable<String, Integer> hashTable = new HashTable<>();
-
-        for(int i=0; i<50; i++){
-            hashTable.put("Test"+i, i);
-        }
-
-        System.out.println(hashTable.get("Test"+49));
-    }
-
-
+    println(myTable.remove(123))
+    println(myTable.get(123))
 }
